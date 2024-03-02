@@ -1,0 +1,29 @@
+[user]
+	name = TsubasaRyuto
+	email = tsubasa7ryuto@gmail.com
+
+[push]
+  default = matching
+
+[alias]
+  co = checkout
+  cob = checkout -b
+  b = branch
+  cim = commit -m
+  st = status
+  pu = push origin
+  ad = add
+  pl = pull
+  de-m-br = !git branch --merged | grep -v \\* xargs -I % git branch -d %
+  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; };f"
+[init]
+	templatedir = .git_tmp
+[core]
+	excludesfile = /Users/tsubasa/.gitignore
+[credential]
+	helper = store --file ~/.git_credentials
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
