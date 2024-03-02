@@ -42,15 +42,37 @@ cp ./zsh/.zshrc ~/.zshrc
 
 # LSPサーバーのインストール (例: pyright, typescript-language-server)
 echo "LSPサーバーをインストールしています..."
-npm install -g pyright typescript-language-server
+if ! command -v pyright &> /dev/null; then
+    echo "pyright LSPサーバーをインストールしています..."
+    npm install -g pyright
+else
+    echo "pyrightはすでにインストールされています。"
+fi
+
+if ! command -v typescript-language-server &> /dev/null; then
+    echo "typescript-language-server LSPサーバーをインストールしています..."
+    npm install -g typescript-language-server
+else
+    echo "typescript-language-serverはすでにインストールされています。"
+fi
 
 # tmuxのインストール
 echo "tmuxをインストールしています..."
-brew install tmux
+if ! command -v tmux &> /dev/null; then
+    echo "tmuxをインストールしています..."
+    brew install tmux
+else
+    echo "tmuxはすでにインストールされています。"
+fi
 
 # Neovimのインストール
 echo "Neovimをインストールしています..."
-brew install neovim
+if ! command -v nvim &> /dev/null; then
+    echo "Neovimをインストールしています..."
+    brew install neovim
+else
+    echo "Neovimはすでにインストールされています。"
+fi
 
 # Packerのインストール
 if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/packer/start/packer.nvim ]; then
@@ -83,6 +105,7 @@ cp -r ./neovim/lua "$NVIM_CONFIG_DIR"
 cp -r ./neovim/plugin "$NVIM_CONFIG_DIR"
 
 # Neovimを起動し、Packerを使ってプラグインをインストールするコマンドを実行
+echo "Neovimを起動し、Packerを使ってプラグインをインストールしています..."
 nvim --headless +PackerInstall +qall
 
 # Gitの設定ファイルをコピー

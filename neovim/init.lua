@@ -62,4 +62,9 @@ vim.api.nvim_set_keymap("i", "<Down>", "<Nop>", {})
 vim.api.nvim_set_keymap("i", "<Left>", "<Nop>", {})
 vim.api.nvim_set_keymap("i", "<Right>", "<Nop>", {})
 
-vim.cmd 'colorscheme dracula'
+vim.cmd [[
+  augroup colorscheme_setup
+    autocmd!
+    autocmd VimEnter * colorscheme dracula
+  augroup end
+]]
