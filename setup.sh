@@ -79,7 +79,7 @@ cp ./neovim/lazy-lock.json "$NVIM_CONFIG_DIR"
 echo "ディレクトリ構成をコピーしています..."
 cp -r ./neovim/pack "$NVIM_CONFIG_DIR"
 cp -r ./neovim/starter "$NVIM_CONFIG_DIR"
-cp -r ./nowvim/lua "$NVIM_CONFIG_DIR"
+cp -r ./neovim/lua "$NVIM_CONFIG_DIR"
 cp -r ./neovim/plugin "$NVIM_CONFIG_DIR"
 
 # Neovimを起動し、Packerを使ってプラグインをインストールするコマンドを実行
