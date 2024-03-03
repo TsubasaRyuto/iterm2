@@ -68,3 +68,24 @@ vim.cmd [[
     autocmd VimEnter * colorscheme dracula
   augroup end
 ]]
+
+local status, nvim_lsp = pcall(require, "lspconfig")
+if (not  status) then return end
+
+local protocol = require('vim.lsp.protocol')
+
+local an_attach = function(client, bufnr)
+  if client.server_capabilities.documentFormattingProvider then
+    vim.api.nvim_create.autocmd('BufWritePre', {
+      group = vim.api.nvim_create_augroup('Format', { clear = true }),
+      buffer = bufnr,
+      callback = function() vim.lsp.buf.formatting_seq_sync(nil, 1000) end
+    })
+  end
+end
+
+nvim_lsp.tsserver.setup {
+  on_attach = an_attach,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" },
+}
